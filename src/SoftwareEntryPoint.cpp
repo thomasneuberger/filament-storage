@@ -1,5 +1,6 @@
 #include "SoftwareEntryPoint.h"
 
+#include <Arduino.h>
 #include <stdio.h>
 
 bool SoftwareEntryPoint::initialize() {
@@ -11,6 +12,7 @@ bool SoftwareEntryPoint::initialize() {
 
 bool SoftwareEntryPoint::pollAndDisplayReadings() {
     if (!sensorConnection.readTemperatureAndHumidity()) {
+        Serial.println("Sensor read failed");
         return displayConnection.showText("Sensor read failed");
     }
 
@@ -22,6 +24,8 @@ bool SoftwareEntryPoint::pollAndDisplayReadings() {
         sensorConnection.getTemperatureC(),
         sensorConnection.getHumidityPercent()
     );
+
+    Serial.println(buffer);
 
     return displayConnection.showText(buffer);
 }

@@ -12,3 +12,10 @@
 - Humidity sensor [AzDelivery DHT22 AM2302 Temperature sensor and air humidity sensor](https://www.az-delivery.de/en/products/dht22-temperatursensor-modul)
 - Display [AZ-Delivery 1,3“ I²C OLED Display](https://www.az-delivery.de/en/products/1-3zoll-i2c-oled-display)
 - Dehumidifier [Trotec TTP 2 E](https://de.trotec.com/shop/peltier-luftentfeuchter-ttp-2-e.html)
+
+
+The humidity sensor is the raw sensor without a board. Its pins are (left to right)
+1: VDD -- power supply
+2: DATA -- signal
+3: NULL
+4: GND
