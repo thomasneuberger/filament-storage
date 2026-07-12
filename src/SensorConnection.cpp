@@ -5,7 +5,7 @@
 #include <DHT.h>
 
 namespace {
-constexpr uint8_t kDhtPin = 2;
+constexpr uint8_t kDhtPin = 14;
 constexpr uint8_t kDhtType = DHT22;
 
 DHT dht(kDhtPin, kDhtType);

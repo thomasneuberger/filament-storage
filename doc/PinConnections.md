@@ -4,7 +4,7 @@ This document describes all electrical connections used by the current software.
 
 ## Active Pin Usage From Source Code
 
-- Sensor data pin: `GPIO2` (`D4` on D1 mini), see `kDhtPin = 2` in `src/SensorConnection.cpp`.
+- Sensor data pin: `GPIO14` (`D5` on D1 mini), see `kDhtPin = 14` in `src/SensorConnection.cpp`.
 - Display bus: hardware I2C via `Wire.begin()` in `src/DisplayConnection.cpp`.
 
 ## D1 mini (default environment)
@@ -14,7 +14,7 @@ The default PlatformIO environment is `d1_mini`, so the following mapping applie
 | Component | Signal | D1 mini pin | ESP8266 GPIO | Notes |
 | --- | --- | --- | --- | --- |
 | DHT22 / AM2302 | VDD | 3V3 | 3.3V rail | Sensor supply |
-| DHT22 / AM2302 | DATA | D4 | GPIO2 | Digital data input |
+| DHT22 / AM2302 | DATA | D5 | GPIO14 | Digital data input |
 | DHT22 / AM2302 | GND | G | GND | Common ground |
 | OLED SH1106 (I2C) | VCC | 3V3 | 3.3V rail | Display supply |
 | OLED SH1106 (I2C) | GND | G | GND | Common ground |
@@ -32,7 +32,7 @@ The raw DHT22/AM2302 sensor requires a pull-up resistor on its DATA line.
 Example:
 
 - `DHT22 VDD` -> `3V3`
-- `DHT22 DATA` -> `D4/GPIO2`
+- `DHT22 DATA` -> `D5/GPIO14`
 - `10 kOhm resistor` between `VDD` and `DATA`
 - `DHT22 GND` -> `GND`
 
@@ -48,4 +48,4 @@ For the bare 4-pin sensor package (front grid facing you, pins downward):
 ## Notes
 
 - The project currently also defines an `esp32dev` environment. If you use it, update pin mapping documentation once explicit pin assignments are added in code.
-- `GPIO2` is a boot-related pin on ESP8266 and must not be held low during boot; the DATA pull-up helps keep the line in a valid state.
+- `GPIO2` is a boot-related pin on ESP8266. The DHT22 DATA line uses `GPIO14` (`D5`) to avoid boot-strap conflicts and improve startup reliability.
