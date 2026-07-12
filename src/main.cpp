@@ -15,6 +15,8 @@ void setup() {
 }
 
 void loop() {
+    app.loop();
+
     const unsigned long now = millis();
     if (now - lastPollMs >= kPollIntervalMs) {
         lastPollMs = now;

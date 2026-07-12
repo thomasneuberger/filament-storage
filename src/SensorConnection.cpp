@@ -26,7 +26,12 @@ bool SensorConnection::readTemperatureAndHumidity() {
 
     humidityPercent = newHumidityPercent;
     temperatureC = newTemperatureC;
+    readingAvailable = true;
     return true;
+}
+
+bool SensorConnection::hasReading() const {
+    return readingAvailable;
 }
 
 float SensorConnection::getTemperatureC() const {

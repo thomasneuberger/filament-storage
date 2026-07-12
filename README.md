@@ -10,3 +10,7 @@ As a start and since I have next to no experience with microcontrollers and such
 ## Wiring
 
 Detailed pin connection documentation is available in [doc/PinConnections.md](doc/PinConnections.md).
+
+## WiFi Setup
+
+WiFi credential configuration is documented in [doc/WifiConfiguration.md](doc/WifiConfiguration.md).
