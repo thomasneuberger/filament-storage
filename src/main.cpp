@@ -9,6 +9,8 @@ constexpr unsigned long kPollIntervalMs = 5000;
 }
 
 void setup() {
+    Serial.begin(74880);
+    Serial.println("Booting...");
     app.initialize();
 }
 
