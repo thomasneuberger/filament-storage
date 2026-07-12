@@ -5,3 +5,4 @@ platformio.local.ini
 .vscode/launch.json
 .vscode/ipch
 *localOnly/
+.vscode/settings.json

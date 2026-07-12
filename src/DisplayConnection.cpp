@@ -2,6 +2,7 @@
 
 #include <string.h>
 
+#include <Arduino.h>
 #include <U8g2lib.h>
 #include <Wire.h>
 
@@ -11,6 +12,34 @@ bool isConnected = false;
 
 constexpr int kDisplayWidth = 128;
 constexpr int kDisplayHeight = 64;
+constexpr int kWifiIconSize = 10;
+constexpr int kWifiIconPadding = 2;
+
+int wifiIconX() {
+    return kDisplayWidth - kWifiIconSize - kWifiIconPadding;
+}
+
+int wifiIconY() {
+    return kWifiIconPadding;
+}
+
+void drawWifiConnectedIcon() {
+    const int x = wifiIconX();
+    const int y = wifiIconY();
+
+    display.drawCircle(x + kWifiIconSize / 2, y + kWifiIconSize / 2 + 2, 4, U8G2_DRAW_UPPER_RIGHT);
+    display.drawCircle(x + kWifiIconSize / 2, y + kWifiIconSize / 2 + 2, 2, U8G2_DRAW_UPPER_RIGHT);
+    display.drawDisc(x + kWifiIconSize / 2 + 2, y + kWifiIconSize / 2 + 4, 1);
+}
+
+void drawWifiDisconnectedIcon() {
+    const int x = wifiIconX();
+    const int y = wifiIconY();
+
+    drawWifiConnectedIcon();
+    display.drawLine(x, y + kWifiIconSize - 1, x + kWifiIconSize - 1, y);
+    display.drawLine(x, y + kWifiIconSize - 2, x + kWifiIconSize - 2, y);
+}
 
 void drawCenteredLine(const char* text, int baselineY) {
     const int textWidth = static_cast<int>(display.getStrWidth(text));
@@ -41,7 +70,7 @@ bool DisplayConnection::clear() {
     return true;
 }
 
-bool DisplayConnection::showText(const char* text) {
+bool DisplayConnection::showText(const char* text, WifiIndicatorState wifiState) {
     if (!isConnected || text == nullptr) {
         return false;
     }
@@ -49,13 +78,23 @@ bool DisplayConnection::showText(const char* text) {
     const char* secondLine = strchr(text, '\n');
 
     display.clearBuffer();
+    if (wifiState == WifiIndicatorState::Connected) {
+        drawWifiConnectedIcon();
+    } else if (wifiState == WifiIndicatorState::Connecting) {
+        if ((millis() / 300UL) % 2UL == 0UL) {
+            drawWifiConnectedIcon();
+        }
+    } else if (wifiState == WifiIndicatorState::Disconnected) {
+        drawWifiDisconnectedIcon();
+    }
+
     if (secondLine == nullptr) {
-        display.setFont(u8g2_font_helvB18_tr);
+        display.setFont(u8g2_font_helvB14_tr);
         const int textHeight = display.getAscent() - display.getDescent();
         const int baselineY = (kDisplayHeight + textHeight) / 2 - display.getDescent();
         drawCenteredLine(text, baselineY);
     } else {
-        display.setFont(u8g2_font_helvB18_tr);
+        display.setFont(u8g2_font_helvB14_tr);
         char firstLine[32];
         const size_t firstLineLength = static_cast<size_t>(secondLine - text);
         const size_t copyLength = firstLineLength < sizeof(firstLine) - 1 ? firstLineLength : sizeof(firstLine) - 1;

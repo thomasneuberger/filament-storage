@@ -41,7 +41,7 @@ const char* wifiStatusToString(wl_status_t status) {
 }
 }
 
-bool WifiConnection::connect() {
+bool WifiConnection::connect(WifiConnectingTickCallback onConnectingTick, void* context) {
 #if defined(ARDUINO_ARCH_ESP8266) || defined(ARDUINO_ARCH_ESP32)
     Serial.println("WiFi: initializing station mode");
 
@@ -62,6 +62,10 @@ bool WifiConnection::connect() {
     Serial.print("WiFi: waiting for connection");
     const unsigned long startMs = millis();
     while (WiFi.status() != WL_CONNECTED && (millis() - startMs) < kWifiTimeoutMs) {
+        if (onConnectingTick != nullptr) {
+            const bool blinkOn = ((millis() / 300UL) % 2UL) == 0UL;
+            onConnectingTick(context, blinkOn);
+        }
         delay(250);
         Serial.print('.');
     }

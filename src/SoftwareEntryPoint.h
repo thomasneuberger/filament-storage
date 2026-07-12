@@ -13,6 +13,9 @@ public:
     bool pollAndDisplayReadings();
 
 private:
+    static void onWifiConnectingTick(void* context, bool blinkOn);
+    void renderWifiConnecting(bool blinkOn);
+
     SensorConnection sensorConnection;
     DisplayConnection displayConnection;
     WifiConnection wifiConnection;
