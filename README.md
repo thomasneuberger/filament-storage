@@ -14,3 +14,7 @@ Detailed pin connection documentation is available in [doc/PinConnections.md](do
 ## WiFi Setup
 
 WiFi credential configuration is documented in [doc/WifiConfiguration.md](doc/WifiConfiguration.md).
+
+## Home Assistant Integration
+
+Integration of the HTTP `/sensor` endpoint with Home Assistant REST sensors is documented in [doc/HomeAssistantIntegration.md](doc/HomeAssistantIntegration.md).
