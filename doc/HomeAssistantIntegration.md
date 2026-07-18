@@ -107,6 +107,43 @@ If you previously used `sensor: - platform: rest`, remove the old entries to avo
 
 After updating `configuration.yaml`, restart Home Assistant.
 
+## Automating a Shelly Plug
+
+If your dehumidifier is connected to a Shelly smart plug that is already integrated into Home Assistant, you can automate switching based on the humidity reported by this device.
+
+The example below turns the Shelly plug on when humidity rises above `30%` and turns it off when humidity falls below `27%`.
+
+Using separate on/off thresholds adds hysteresis and avoids rapid switching when the reading fluctuates around a single limit.
+
+Add the following automation to your Home Assistant configuration:
+
+```yaml
+automation:
+  - alias: Filament storage dehumidifier on
+    triggers:
+      - trigger: numeric_state
+        entity_id: sensor.filament_storage_humidity
+        above: 30
+    actions:
+      - action: switch.turn_on
+        target:
+          entity_id: switch.filament_storage_dehumidifier
+
+  - alias: Filament storage dehumidifier off
+    triggers:
+      - trigger: numeric_state
+        entity_id: sensor.filament_storage_humidity
+        below: 27
+    actions:
+      - action: switch.turn_off
+        target:
+          entity_id: switch.filament_storage_dehumidifier
+```
+
+Replace `switch.filament_storage_dehumidifier` with the entity ID of your Shelly plug.
+
+If you prefer using the Home Assistant UI instead of YAML, create two automations with the same thresholds and actions.
+
 ## Validation
 
 You can verify the endpoint first from another device in the same network:
