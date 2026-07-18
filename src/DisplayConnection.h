@@ -12,7 +12,7 @@ class DisplayConnection {
 public:
     bool connect();
     bool clear();
-    bool showText(const char* text, WifiIndicatorState wifiState = WifiIndicatorState::Hidden);
+    bool showText(const char* text, WifiIndicatorState wifiState = WifiIndicatorState::Hidden, int validSensorReadings = -1);
 };
 
 using DisplayConnector = DisplayConnection;

@@ -14,7 +14,7 @@ void SoftwareEntryPoint::onWifiConnectingTick(void* context, bool blinkOn) {
 
 void SoftwareEntryPoint::renderWifiConnecting(bool blinkOn) {
     const WifiIndicatorState state = blinkOn ? WifiIndicatorState::Connecting : WifiIndicatorState::Hidden;
-    displayConnection.showText("WiFi\nConnecting", state);
+    displayConnection.showText("WiFi\nConnecting", state, sensorConnection.getLastValidSensorCount());
 }
 
 bool SoftwareEntryPoint::initialize() {
@@ -45,9 +45,9 @@ bool SoftwareEntryPoint::initialize() {
 
     if (displayReady) {
         if (wifiReady) {
-            displayConnection.showText("WiFi\nConnected", WifiIndicatorState::Connected);
+            displayConnection.showText("WiFi\nConnected", WifiIndicatorState::Connected, sensorConnection.getLastValidSensorCount());
         } else {
-            displayConnection.showText("WiFi\nOffline", WifiIndicatorState::Disconnected);
+            displayConnection.showText("WiFi\nOffline", WifiIndicatorState::Disconnected, sensorConnection.getLastValidSensorCount());
         }
     }
 
@@ -63,7 +63,7 @@ bool SoftwareEntryPoint::pollAndDisplayReadings() {
 
     if (!sensorConnection.readTemperatureAndHumidity()) {
         Serial.println("Sensor read failed");
-        return displayConnection.showText("Sensor read failed", wifiState);
+        return displayConnection.showText("Sensor read failed", wifiState, sensorConnection.getLastValidSensorCount());
     }
 
     char buffer[40];
@@ -77,5 +77,5 @@ bool SoftwareEntryPoint::pollAndDisplayReadings() {
 
     Serial.println(buffer);
 
-    return displayConnection.showText(buffer, wifiState);
+    return displayConnection.showText(buffer, wifiState, sensorConnection.getLastValidSensorCount());
 }

@@ -44,15 +44,53 @@ bool HttpServerConnection::start() {
         const bool hasReading = hasSensor && sensorConnection->hasReading();
         const float temperatureC = hasSensor ? sensorConnection->getTemperatureC() : 0.0f;
         const float humidityPercent = hasSensor ? sensorConnection->getHumidityPercent() : 0.0f;
+        const uint8_t configuredSensorCount = hasSensor ? sensorConnection->getConfiguredSensorCount() : 0;
 
-        char payload[160];
+        char sensorReadingsPayload[220];
+        size_t sensorReadingsLength = 0;
+        sensorReadingsLength += static_cast<size_t>(snprintf(
+            sensorReadingsPayload + sensorReadingsLength,
+            sizeof(sensorReadingsPayload) - sensorReadingsLength,
+            "["
+        ));
+
+        for (uint8_t sensorIndex = 0; sensorIndex < configuredSensorCount; ++sensorIndex) {
+            const bool isValid = hasSensor && sensorConnection->wasLastReadingValidForSensor(sensorIndex);
+            if (isValid) {
+                sensorReadingsLength += static_cast<size_t>(snprintf(
+                    sensorReadingsPayload + sensorReadingsLength,
+                    sizeof(sensorReadingsPayload) - sensorReadingsLength,
+                    "%s{\"temperatureC\":%.2f,\"humidityPercent\":%.2f}",
+                    sensorIndex == 0 ? "" : ",",
+                    sensorConnection->getLastTemperatureCForSensor(sensorIndex),
+                    sensorConnection->getLastHumidityPercentForSensor(sensorIndex)
+                ));
+            } else {
+                sensorReadingsLength += static_cast<size_t>(snprintf(
+                    sensorReadingsPayload + sensorReadingsLength,
+                    sizeof(sensorReadingsPayload) - sensorReadingsLength,
+                    "%snull",
+                    sensorIndex == 0 ? "" : ","
+                ));
+            }
+        }
+
+        snprintf(
+            sensorReadingsPayload + sensorReadingsLength,
+            sizeof(sensorReadingsPayload) - sensorReadingsLength,
+            "]"
+        );
+
+        char payload[420];
         snprintf(
             payload,
             sizeof(payload),
-            "{\"ok\":true,\"hasReading\":%s,\"temperatureC\":%.2f,\"humidityPercent\":%.2f}",
+            "{\"ok\":true,\"hasReading\":%s,\"temperatureC\":%.2f,\"humidityPercent\":%.2f,\"configuredSensorCount\":%u,\"sensorReadings\":%s}",
             hasReading ? "true" : "false",
             temperatureC,
-            humidityPercent
+            humidityPercent,
+            static_cast<unsigned int>(configuredSensorCount),
+            sensorReadingsPayload
         );
 
         webServer.send(200, "application/json", payload);

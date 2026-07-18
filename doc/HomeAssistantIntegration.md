@@ -7,7 +7,7 @@ This project exposes sensor data through the HTTP endpoint:
 Example response:
 
 ```json
-{"ok":true,"hasReading":true,"temperatureC":22.40,"humidityPercent":48.10}
+{"ok":true,"hasReading":true,"temperatureC":22.40,"humidityPercent":48.10,"configuredSensorCount":3,"sensorReadings":[{"temperatureC":22.30,"humidityPercent":47.90},null,{"temperatureC":22.50,"humidityPercent":48.40}]}
 ```
 
 Notes:
@@ -16,6 +16,9 @@ Notes:
 - `hasReading` indicates whether a valid sensor reading is currently available.
 - `temperatureC` is temperature in Celsius.
 - `humidityPercent` is relative humidity in percent.
+- `configuredSensorCount` is the number of configured sensors.
+- `sensorReadings` contains one entry per sensor.
+- Each entry in `sensorReadings` is either an object with `temperatureC`/`humidityPercent` or `null` if that sensor was invalid.
 
 ## Prerequisites
 
@@ -48,6 +51,54 @@ rest:
         state_class: measurement
         value_template: "{{ value_json.humidityPercent }}"
         availability: "{{ value_json.ok and value_json.hasReading }}"
+
+      - name: Filament Storage Sensor 1 Temperature
+        unique_id: filament_storage_sensor_1_temperature
+        unit_of_measurement: "C"
+        device_class: temperature
+        state_class: measurement
+        value_template: "{{ value_json.sensorReadings[0].temperatureC if value_json.sensorReadings[0] is not none else none }}"
+        availability: "{{ value_json.ok and value_json.sensorReadings is defined and value_json.sensorReadings|length > 0 and value_json.sensorReadings[0] is not none }}"
+
+      - name: Filament Storage Sensor 1 Humidity
+        unique_id: filament_storage_sensor_1_humidity
+        unit_of_measurement: "%"
+        device_class: humidity
+        state_class: measurement
+        value_template: "{{ value_json.sensorReadings[0].humidityPercent if value_json.sensorReadings[0] is not none else none }}"
+        availability: "{{ value_json.ok and value_json.sensorReadings is defined and value_json.sensorReadings|length > 0 and value_json.sensorReadings[0] is not none }}"
+
+      - name: Filament Storage Sensor 2 Temperature
+        unique_id: filament_storage_sensor_2_temperature
+        unit_of_measurement: "C"
+        device_class: temperature
+        state_class: measurement
+        value_template: "{{ value_json.sensorReadings[1].temperatureC if value_json.sensorReadings[1] is not none else none }}"
+        availability: "{{ value_json.ok and value_json.sensorReadings is defined and value_json.sensorReadings|length > 1 and value_json.sensorReadings[1] is not none }}"
+
+      - name: Filament Storage Sensor 2 Humidity
+        unique_id: filament_storage_sensor_2_humidity
+        unit_of_measurement: "%"
+        device_class: humidity
+        state_class: measurement
+        value_template: "{{ value_json.sensorReadings[1].humidityPercent if value_json.sensorReadings[1] is not none else none }}"
+        availability: "{{ value_json.ok and value_json.sensorReadings is defined and value_json.sensorReadings|length > 1 and value_json.sensorReadings[1] is not none }}"
+
+      - name: Filament Storage Sensor 3 Temperature
+        unique_id: filament_storage_sensor_3_temperature
+        unit_of_measurement: "C"
+        device_class: temperature
+        state_class: measurement
+        value_template: "{{ value_json.sensorReadings[2].temperatureC if value_json.sensorReadings[2] is not none else none }}"
+        availability: "{{ value_json.ok and value_json.sensorReadings is defined and value_json.sensorReadings|length > 2 and value_json.sensorReadings[2] is not none }}"
+
+      - name: Filament Storage Sensor 3 Humidity
+        unique_id: filament_storage_sensor_3_humidity
+        unit_of_measurement: "%"
+        device_class: humidity
+        state_class: measurement
+        value_template: "{{ value_json.sensorReadings[2].humidityPercent if value_json.sensorReadings[2] is not none else none }}"
+        availability: "{{ value_json.ok and value_json.sensorReadings is defined and value_json.sensorReadings|length > 2 and value_json.sensorReadings[2] is not none }}"
 ```
 
 Replace `<DEVICE_IP>` with the IP address of your ESP device.
@@ -64,4 +115,6 @@ You can verify the endpoint first from another device in the same network:
 curl http://<DEVICE_IP>/sensor
 ```
 
-If `hasReading` is `false`, Home Assistant marks the entities as unavailable until the first valid sensor value is present.
+If `hasReading` is `false`, the combined entities become unavailable until at least one sensor provides a valid value.
+
+For per-sensor entities, Home Assistant marks only the affected sensor entities unavailable when the corresponding `sensorReadings` array entry is `null`.

@@ -14,6 +14,7 @@ constexpr int kDisplayWidth = 128;
 constexpr int kDisplayHeight = 64;
 constexpr int kWifiIconSize = 10;
 constexpr int kWifiIconPadding = 2;
+constexpr int kWifiCountYOffset = 9;
 
 int wifiIconX() {
     return kDisplayWidth - kWifiIconSize - kWifiIconPadding;
@@ -46,6 +47,18 @@ void drawCenteredLine(const char* text, int baselineY) {
     const int x = textWidth < kDisplayWidth ? (kDisplayWidth - textWidth) / 2 : 0;
     display.drawStr(x, baselineY, text);
 }
+
+void drawWifiValidCount(int validSensorReadings) {
+    const int countToDisplay = validSensorReadings < 0 ? 0 : validSensorReadings;
+
+    char countText[12];
+    snprintf(countText, sizeof(countText), "%d", countToDisplay);
+
+    const int x = wifiIconX() + kWifiIconSize / 2;
+    const int y = wifiIconY() + kWifiIconSize + kWifiCountYOffset;
+    const int textWidth = static_cast<int>(display.getStrWidth(countText));
+    display.drawStr(x - textWidth / 2, y, countText);
+}
 }
 
 bool DisplayConnection::connect() {
@@ -70,7 +83,7 @@ bool DisplayConnection::clear() {
     return true;
 }
 
-bool DisplayConnection::showText(const char* text, WifiIndicatorState wifiState) {
+bool DisplayConnection::showText(const char* text, WifiIndicatorState wifiState, int validSensorReadings) {
     if (!isConnected || text == nullptr) {
         return false;
     }
@@ -87,6 +100,9 @@ bool DisplayConnection::showText(const char* text, WifiIndicatorState wifiState)
     } else if (wifiState == WifiIndicatorState::Disconnected) {
         drawWifiDisconnectedIcon();
     }
+
+    display.setFont(u8g2_font_5x7_tr);
+    drawWifiValidCount(validSensorReadings);
 
     if (secondLine == nullptr) {
         display.setFont(u8g2_font_helvB14_tr);
