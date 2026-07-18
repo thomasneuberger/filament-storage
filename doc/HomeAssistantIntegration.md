@@ -123,7 +123,7 @@ automation:
     triggers:
       - trigger: numeric_state
         entity_id: sensor.filament_storage_humidity
-        above: 30
+        above: 25
     actions:
       - action: switch.turn_on
         target:
@@ -133,7 +133,7 @@ automation:
     triggers:
       - trigger: numeric_state
         entity_id: sensor.filament_storage_humidity
-        below: 27
+        below: 20
     actions:
       - action: switch.turn_off
         target:
