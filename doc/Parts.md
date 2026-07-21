@@ -11,6 +11,7 @@
 - USB-C to TTL Adapter [AzDelivery USB-C to TTL Serial Adapter for 3,3V and 5V](https://www.az-delivery.de/en/products/usb-c-zu-ttl-serial-adapter-fur-3-3v-und-5v-kompatibel-mit-ft232rl)
 - Humidity sensor [AzDelivery DHT22 AM2302 Temperature sensor and air humidity sensor](https://www.az-delivery.de/en/products/dht22-temperatursensor-modul)
 - Display [AZ-Delivery 1,3“ I²C OLED Display](https://www.az-delivery.de/en/products/1-3zoll-i2c-oled-display)
+- Ethernet port [Willwewon RJ45 Netzwerkanschlussadapter (horizontale Buchse)](https://www.amazon.de/Willwewon-Netzwerkanschlussadapter-horizontale-Rechtwinkel-Stecker-Breakout/dp/B0GXCMWG32)
 - Dehumidifier [Trotec TTP 2 E](https://de.trotec.com/shop/peltier-luftentfeuchter-ttp-2-e.html)
 
 
