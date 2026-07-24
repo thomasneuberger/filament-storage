@@ -6,6 +6,10 @@ rj45_board_width = 34;
 rj45_board_length = 28;
 rj45_board_thickness = 1.6;
 
+rj45_jack_width = 16;
+rj45_jack_depth = 13;
+rj45_jack_height = 13;
+
 rj45_screwhole_diameter = 3.1;
 rj45_screwhole_positions_x = [-rj45_board_width / 2 + 3.4, rj45_board_width / 2 - 3.4];
 rj45_screwhole_positions_y = [-rj45_board_length / 2 + 5.1, rj45_board_length / 2 - 12];
@@ -42,9 +46,6 @@ module add_rj45_board_standoffs_and_preview(
 				cube([rj45_board_width, rj45_board_length, board_thickness]);
 
 		// RJ45 jack preview on the front side (negative Y edge)
-		rj45_jack_width = 16;
-		rj45_jack_depth = 13;
-		rj45_jack_height = 13;
 		color([0.75, 0.75, 0.75, 0.85])
 			translate([
 				center[0] - rj45_jack_width / 2,

@@ -7,3 +7,4 @@ platformio.local.ini
 *localOnly/
 .vscode/settings.json
 *.stl
+*.3mf
