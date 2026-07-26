@@ -9,40 +9,6 @@ include <microcontroller_dimensions.scad>
 // Baseplate-specific dimensions
 // ...
 
-// -----------------------------
-// Baseplate hole and spacer geometry
-// -----------------------------
-hole_diameter = 5;
-hole_radius = hole_diameter / 2;
-spacer_height = 2;
-spacer_outer_diameter = hole_radius + 2;
-spacer_inner_diameter = hole_radius / 2;
-
-higher_wall_inner_y = plate_top_y - plate_thickness;
-plate_side_inset = plate_thickness + 1;
-// Keep the previous edge clearance to side walls when changing hole diameter.
-side_hole_clearance = plate_side_inset - 1.5;
-
-// Hole near the board/wall corner: 5 mm from board edge and 1 mm from higher wall.
-hole_board_wall_x = board_right_x + 5 + hole_radius;
-hole_board_wall_y = higher_wall_inner_y - 1 - hole_radius;
-
-// Hole in the plate corner near the higher wall and side.
-hole_high_wall_corner_x = plate_right_x - side_hole_clearance - hole_radius;
-hole_high_wall_corner_y = higher_wall_inner_y - 1 - hole_radius;
-
-// Side holes: constant side-edge clearance and 3 mm behind RJ45 boards.
-rj45_holes_y = rj45_center_y + rj45_board_length / 2 + 3 + hole_radius;
-hole_rj45_left_x = plate_left_x + side_hole_clearance + hole_radius;
-hole_rj45_right_x = plate_right_x - side_hole_clearance - hole_radius;
-
-hole_positions = [
-    [hole_board_wall_x, hole_board_wall_y],
-    [hole_high_wall_corner_x, hole_high_wall_corner_y],
-    [hole_rj45_left_x, rj45_holes_y],
-    [hole_rj45_right_x, rj45_holes_y]
-];
-
 // Base plate
 difference() {
     translate([plate_left_x, plate_bottom_y, 0])
