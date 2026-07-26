@@ -1,6 +1,7 @@
 // A board with a RJ45 port and the pins on the opposite side. The RJ45 port is on the front side of the board when the pins are facing outward
 
 use <pins.scad>
+use <standoff.scad>;
 
 rj45_board_width = 34;
 rj45_board_length = 28;
@@ -14,11 +15,13 @@ rj45_screwhole_diameter = 3.1;
 rj45_screwhole_positions_x = [-rj45_board_width / 2 + 3.4, rj45_board_width / 2 - 3.4];
 rj45_screwhole_positions_y = [-rj45_board_length / 2 + 5.1, rj45_board_length / 2 - 12];
 
+rj45_standoff_diameter = 6;
+
 module add_rj45_board_standoffs_and_preview(
 	center,
 	base_z,
 	standoff_height,
-	standoff_diameter = 6,
+	standoff_diameter = rj45_standoff_diameter,
 	screw_hole_diameter = rj45_screwhole_diameter,
 	board_thickness = rj45_board_thickness,
 	show_preview = true
