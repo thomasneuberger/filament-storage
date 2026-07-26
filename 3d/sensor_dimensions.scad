@@ -47,13 +47,13 @@ rj45_standoff_height = 3;
 // Screw dimensions
 // -----------------------------
 screw_spacer_inner_diameter = 3.2;
-screw_spacer_outer_diameter = screw_spacer_inner_diameter + 4;
+screw_spacer_outer_diameter = screw_spacer_inner_diameter + 5;
 screw_hole_positions_x = [
     -plate_width / 2 + plate_thickness + screw_spacer_outer_diameter / 2 + 1,
     plate_width / 2 - plate_thickness - screw_spacer_outer_diameter / 2 - 1
     ];
 screw_hole_positions_y = [
-    plate_top_y - plate_thickness - screw_spacer_outer_diameter / 2 - 1,
+    plate_bottom_y + cover_length - plate_thickness - screw_spacer_outer_diameter / 2 - 1,
     plate_bottom_y + plate_thickness + screw_spacer_outer_diameter / 2 + 1
     ];
 screw_hole_diameter = screw_spacer_inner_diameter + 3;

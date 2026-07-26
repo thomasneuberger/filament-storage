@@ -15,6 +15,16 @@ for (position_x = sensor_positions_x) {
         cube([sensor_width, sensor_length, sensor_pedestal_height]);
 }
 
+// RJ45 side wall
+translate([plate_left_x, plate_bottom_y, plate_thickness])
+    cube([plate_width, plate_thickness, rj45_standoff_height]);
+
+translate([plate_left_x, plate_bottom_y, plate_thickness + rj45_standoff_height])
+    cube([plate_width / 2 - rj45_board_width / 2 - 1, plate_thickness, rj45_board_thickness + 1]);
+
+translate([plate_left_x + plate_width / 2 + rj45_board_width / 2 + 1, plate_bottom_y, plate_thickness + rj45_standoff_height])
+    cube([plate_width / 2 - rj45_board_width / 2 - 1, plate_thickness, rj45_board_thickness + 1]);
+
 // RJ45 board
 add_rj45_board_standoffs_and_preview(
     [rj45_position_x, rj45_position_y],
