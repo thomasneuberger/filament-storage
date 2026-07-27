@@ -12,7 +12,7 @@ rj45_jack_depth = 13;
 rj45_jack_height = 13;
 
 rj45_screwhole_diameter = 3.1;
-rj45_screwhole_positions_x = [-rj45_board_width / 2 + 3.4, rj45_board_width / 2 - 3.4];
+rj45_screwhole_positions_x = [-rj45_board_width / 2 + 2.9, rj45_board_width / 2 - 2.9];
 rj45_screwhole_positions_y = [-rj45_board_length / 2 + 5.1, rj45_board_length / 2 - 12];
 
 rj45_standoff_diameter = 6;

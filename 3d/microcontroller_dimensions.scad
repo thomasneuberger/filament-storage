@@ -79,10 +79,11 @@ right_end_extension_width = max(0, plate_right_x - end_extension_inner_right_x);
 // Baseplate hole and spacer geometry
 // -----------------------------
 spacer_inner_diameter = 3.2;
-spacer_outer_diameter = spacer_inner_diameter + 4;
+spacer_outer_diameter = spacer_inner_diameter + 5;
 hole_diameter = spacer_inner_diameter + 3;
 hole_radius = hole_diameter / 2;
 spacer_height = 2;
+cover_standoff_hole_diameter = 4.5;
 
 higher_wall_inner_y = plate_top_y - plate_thickness;
 plate_side_inset = plate_thickness + 3;

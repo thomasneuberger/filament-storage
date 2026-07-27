@@ -72,7 +72,7 @@ difference() {
 			cylinder(h = display_knob_height, r = display_knob_radius);
 
 		for (p = hole_positions) {
-			standoff(cover_support_standoff_height, [-p[0], p[1], plate_thickness], cover_support_standoff_diameter, hole_diameter);
+			standoff(cover_support_standoff_height, [-p[0], p[1], plate_thickness], cover_support_standoff_diameter, cover_standoff_hole_diameter);
 		}
 	}
 
