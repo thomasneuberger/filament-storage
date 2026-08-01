@@ -14,13 +14,13 @@ The default PlatformIO environment is `d1_mini`, so the following mapping applie
 | Component | Signal | D1 mini pin | ESP8266 GPIO | Notes |
 | --- | --- | --- | --- | --- |
 | DHT22 / AM2302 #1 | VDD | 3V3 | 3.3V rail | Sensor supply |
-| DHT22 / AM2302 #1 | DATA | D5 | GPIO14 | Digital data input |
+| DHT22 / AM2302 #1 | DATA | D5 | GPIO14 | Digital data input, yellow |
 | DHT22 / AM2302 #1 | GND | G | GND | Common ground |
 | DHT22 / AM2302 #2 | VDD | 3V3 | 3.3V rail | Sensor supply |
-| DHT22 / AM2302 #2 | DATA | D6 | GPIO12 | Digital data input |
+| DHT22 / AM2302 #2 | DATA | D6 | GPIO12 | Digital data input, orange |
 | DHT22 / AM2302 #2 | GND | G | GND | Common ground |
 | DHT22 / AM2302 #3 | VDD | 3V3 | 3.3V rail | Sensor supply |
-| DHT22 / AM2302 #3 | DATA | D7 | GPIO13 | Digital data input |
+| DHT22 / AM2302 #3 | DATA | D7 | GPIO13 | Digital data input, red |
 | DHT22 / AM2302 #3 | GND | G | GND | Common ground |
 | OLED SH1106 (I2C) | VCC | 3V3 | 3.3V rail | Display supply |
 | OLED SH1106 (I2C) | GND | G | GND | Common ground |
