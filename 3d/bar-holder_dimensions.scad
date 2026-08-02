@@ -6,7 +6,7 @@ back_thickness = 2;
 bar_hole_distance = 130;
 bar_hole_diameter = 16;
 
-knob_diameter = 2;
+knob_diameter = 3;
 knob_height = 8;
 knob_distance_x = 192;
 knob_distance_y = 32;
