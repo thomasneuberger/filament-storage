@@ -20,3 +20,9 @@ The humidity sensor is the raw sensor without a board. Its pins are (left to rig
 2: DATA -- signal
 3: NULL
 4: GND
+
+Silicagel:
+2 packages with each:
+2.33kg
+24.7cm x 18.9cm x 12.5cm = 5835 cm^3
+distributed between 8 bins, each 730 cm^3

@@ -1,15 +1,4 @@
-bar_length = 220;
-bar_width = 50;
-bar_height = 10;
-back_thickness = 2;
-
-bar_distance = 130;
-bar_diameter = 16;
-
-knob_diameter = 2;
-knob_height = 8;
-knob_distance_x = 192;
-knob_distance_y = 32;
+include <bar-holder_dimensions.scad>
 
 difference() {
     // The bar holder itself
@@ -17,12 +6,30 @@ difference() {
     
     union() {
         // The holes for the bars
-        translate([bar_distance/2, bar_width/2, -bar_height / 2 - 1])
-            cylinder(h = bar_height - back_thickness + 1, d = bar_diameter);
+        translate([bar_hole_distance/2, bar_width/2, -bar_height / 2 - 1])
+            cylinder(h = bar_height - back_thickness + 1, d = bar_hole_diameter);
         
-        translate([-bar_distance/2, bar_width/2, -bar_height / 2 - 1])
-            cylinder(h = bar_height - back_thickness + 1, d = bar_diameter);
+        translate([-bar_hole_distance/2, bar_width/2, -bar_height / 2 - 1])
+            cylinder(h = bar_height - back_thickness + 1, d = bar_hole_diameter);
+        
+        // The holes for the silicagel bin
+        translate([bin_hole_positions_x[0], -bin_hole_position_y + 10, -bar_height / 2 - 1 - 10])
+            rotate([45, 0, 0])
+                cube([bin_hole_width, bar_height, 30], center = false);
+
+        translate([bin_hole_positions_x[1], -bin_hole_position_y + 10, -bar_height / 2 - 1 - 10])
+            rotate([45, 0, 0])
+                cube([bin_hole_width, bar_height, 30], center = false);
     }
+}
+
+if($preview) {
+    translate([bin_hole_positions_x[0], -bin_hole_position_y, -bar_height / 2 - 1])
+        color("red")
+            cube([1, 1, 1], center = false);
+    translate([bin_hole_positions_x[1], -bin_hole_position_y, -bar_height / 2 - 1])
+        color("red")
+            cube([1, 1, 1], center = false);
 }
 
 for (knob_x = [-knob_distance_x/2, knob_distance_x/2]) {
