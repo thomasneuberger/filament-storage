@@ -22,7 +22,7 @@ bin_hole_gap = 0.5;
 bin_hole_width = bin_thickness + bin_hole_gap * 2;
 bin_hole_positions_x = [bin_hole_distance_x/2, -bin_hole_distance_x/2 - bin_hole_width];
 
-bin_airhole_diameter = 1;
+bin_airhole_diameter = 1.8;
 bin_airhole_count_longside = (bin_length - 5) / 5;
 bin_airhole_positions_longside = [for (i = [0 : bin_airhole_count_longside - 1]) 2.5 + i * 5];
 bin_airhole_count_shortside = (bin_width - 5) / 5;

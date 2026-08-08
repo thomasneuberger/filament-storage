@@ -36,12 +36,12 @@ difference(){
 }
 
 // hooks
-hook_upper_corner_y = bin_width / 2 - bin_thickness - bar_height;
+hook_upper_corner_y = bin_width / 2 - bin_thickness - bar_height + bin_thickness;
 hook_width = bin_thickness * 2;
 hook_upper_corner_z = bin_height / 2 + bin_hole_position_y + hook_length + hook_width;
 hook_positions_x = [bin_length / 2 - bin_thickness, -bin_length / 2];
 for (hook_x = hook_positions_x) {
-    translate([hook_x, bin_width / 2 - bin_thickness - bar_height - 10, bin_height / 2])
+    translate([hook_x, bin_width / 2 - bin_thickness - bar_height - 10 + bin_thickness, bin_height / 2])
         cube([bin_thickness, 10, hook_upper_corner_z - (bin_height / 2)], center = false);
     translate([hook_x, hook_upper_corner_y, hook_upper_corner_z])
         rotate([-135, 0, 0])
